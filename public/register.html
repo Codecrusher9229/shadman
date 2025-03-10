@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="upper">
+         <span>   <h1>Event Registration</h1>
+        <h5 class="h5k">Form once submitted can not be modified again.</h5>
+        <h5 >Fill Carefully*</h5></span>
+       <span><a href="/future"><img class="logo" src="/public/logo.png"></a></span> 
+        </div>
+        <form id="registrationForm">
+          <div class="main">
+            <div class="first">
+                <div>
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div>
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" required>
+                </div>
+                <div>
+                    <label for="studentId">Student ID:</label>
+                    <input type="text" placeholder="BCA2400XXX" id="studentId" required>
+                    <!-- <h5 class="h5k">(ex- BCA1234, B.TECH1234 etc)</h5> -->
+                </div>
+            </div>
+            <div class="second">
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div>
+                    <label for="fullName">Department:</label>
+                    <input type="text" placeholder="BCA/BBA etc." id="department" required>
+                </div>
+                <div>
+                    <label for="event">Select Event:</label>
+                    <select id="event" required>
+                        <option value="">Select an event</option>
+                    </select>
+                </div>
+            </div>
+          </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+</html>

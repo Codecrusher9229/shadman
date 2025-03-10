@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Mr. & Miss Future</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    text-align: center;
+}
+
+.leaderboard-container {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #007bff;
+    color: white;
+}
+
+tbody tr:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+    </style>
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+</head>
+<body>
+    <div class="leaderboard-container">
+        <h1>🏆 Mr. & Miss Future Leaderboard</h1>
+        
+        <!-- Mr. Future Leaderboard -->
+        <section>
+            <h2>👑 Mr. Future</h2>
+            <table id="mrFutureTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Participant</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Miss Future Leaderboard -->
+        <section>
+            <h2>👑 Miss Future</h2>
+            <table id="missFutureTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Participant</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        async function fetchLeaderboard() {
+    try {
+        const response = await fetch("http://localhost:5000/api/future/leaderboard");
+        const data = await response.json();
+
+        const mrFutureTable = document.getElementById("mrFutureTable").querySelector("tbody");
+        const missFutureTable = document.getElementById("missFutureTable").querySelector("tbody");
+
+        mrFutureTable.innerHTML = "";
+        missFutureTable.innerHTML = "";
+
+        // Sort participants by votes (highest first)
+        data.mrFuture.sort((a, b) => b.votes - a.votes);
+        data.missFuture.sort((a, b) => b.votes - a.votes);
+
+        // Populate Mr. Future table
+        data.mrFuture.forEach((participant, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${participant.fullName}</td>
+                <td>${participant.votes}</td>
+            </tr>`;
+            mrFutureTable.innerHTML += row;
+        });
+
+        // Populate Miss Future table
+        data.missFuture.forEach((participant, index) => {
+            let row = `<tr>
+                <td>${index + 1}</td>
+                <td>${participant.fullName}</td>
+                <td>${participant.votes}</td>
+            </tr>`;
+            missFutureTable.innerHTML += row;
+        });
+
+    } catch (error) {
+        console.error("Error fetching leaderboard:", error);
+    }
+}
+
+// Refresh leaderboard every 10 seconds
+setInterval(fetchLeaderboard, 10000);
+document.addEventListener("DOMContentLoaded", fetchLeaderboard);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote for Mr. & Miss Future</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            margin: 20px 0;
+            color: #253466;
+        }
+
+        .participants {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .participant-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+        }
+
+        .participant-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .vote-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .vote-btn:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+
+        .leaderboard-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 6px;
+            transition: 0.3s ease-in-out;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .leaderboard-btn:hover {
+            background-color: #218838;
+            transform: scale(1.1);
+        }
+
+        .leaderboard-btn i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Vote for Mr. & Miss Future</h1>
+
+    <h2>Mr. Future Candidates</h2>
+    <div id="mrFuture" class="participants"></div>
+
+    <h2>Miss Future Candidates</h2>
+    <div id="missFuture" class="participants"></div>
+    <a href="leaderboard.html" class="leaderboard-btn">
+        <i class="fas fa-trophy"></i> View Leaderboard
+    </a>
+
+
+    <script>
+        async function fetchParticipants() {
+            try {
+                const response = await fetch("http://localhost:5000/api/future/participants");
+                const participants = await response.json();
+
+                const mrFutureContainer = document.getElementById("mrFuture");
+                const missFutureContainer = document.getElementById("missFuture");
+
+                participants.forEach(participant => {
+                    const card = document.createElement("div");
+                    card.classList.add("participant-card");
+                    card.innerHTML = `
+                        <img src="http://localhost:5000${participant.candidateImg}" alt="${participant.fullName}">
+                        <h3>${participant.fullName}</h3>
+                        <p>${participant.department}</p>
+                        <button class="vote-btn" onclick="castVote('${participant._id}', '${participant.category}')">Vote</button>
+                    `;
+
+                    if (participant.category === "Mr Future") {
+                        mrFutureContainer.appendChild(card);
+                    } else {
+                        missFutureContainer.appendChild(card);
+                    }
+                });
+            } catch (error) {
+                console.error("Error fetching participants:", error);
+            }
+        }
+
+        function castVote(participantId, category) {
+            if (localStorage.getItem(`voted_${category}`)) {
+                alert("❌ You have already voted for " + category);
+                return;
+            }
+
+            localStorage.setItem(`voted_${category}`, participantId);
+            alert("✅ Vote submitted successfully!");
+
+            document.querySelectorAll(".vote-btn").forEach(btn => {
+                if (btn.getAttribute("onclick").includes(category)) {
+                    btn.disabled = true;
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchParticipants);
+    </script>
+</body>
+
+</html>

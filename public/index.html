@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FUTURE UNIVERSITY-Annual Fest </title>
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Style+Script&display=swap');
+  </style>
+</head>
+
+<body>
+  <!-- navbar section -->
+  <header>
+    <nav>
+      <div class="futurelogo"><a href="/"><img src="logo.png" alt=""></a></div>
+      <div class="nav2">
+        <a href="#main swiper mySwiper">Home</a>
+        <a href="#main2">About</a>
+        <a href="#main3">Events</a>
+        <a href="https://einstein-club.netlify.app/">Contact us</a>
+        <a href="/2"><img src="Einstein_logo.jpg" alt=""></a>
+      </div>
+    </nav>
+  </header>
+  <!-- slider -->
+  <div class="supermain">
+    <main>
+      <div class="slider-container">
+        <div class="slider">
+          <!-- Image to be displayed -->
+          <img id="slider-image" src="" alt="Event Banner">
+        </div>
+        <!-- Navigation buttons -->
+        <button class="swiper-button-prev"></button>
+        <button class="swiper-button-next"></button>
+      </div>
+    </main>
+    <div class="sick">vote consentants</div>
+  </div>
+  <!-- pravah section -->
+  <div class="main2">
+    <h2>Pravah - 2025</h2>
+    <div class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi ratione non autem voluptas nostrum
+      ipsum consequuntur laudantium natus. Impedit provident dolorum nostrum. Esse illum error rerum natus
+      quisquam,ipsum ab quibusdam sapiente numquam repellat voluptate harum explicabo velit atque aliquam. Nemo, minima
+      autem quisquam mollitia nihil consectetur culpa modi, saepe, perspiciatis nisi minus laborum amet porro quasi
+      iusto facere accusamus odit similique? Sit, ut sint.</div>
+    <!-- countdown   -->
+    <div class="clock">
+      <h4>Emerge yourself in this exciting event in</h4>
+      <div id="countdown">
+        <div id="timer">
+          <div>
+            <span id="days">0</span>
+            <span class="tex">Days</span>
+          </div>
+          <div>
+            <span id="hours">0</span>
+            <span class="tex">Hours</span>
+          </div>
+          <div>
+            <span id="minutes">0</span>
+            <span class="tex">Minutes</span>
+          </div>
+          <div>
+            <span id="seconds">0</span>
+            <span class="tex">Seconds</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- events info -->
+  <div class="main3">
+    <h1>Upcoming Events</h1>
+    <h3 class="laptop">Hover the card for Event Info: </h3>
+    <h3 class="mobile">Tap the card for Event Info: </h3>
+    <div class="events-container" id="eventsContainer">
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/events"); // Fetch events from API
+        const events = await response.json();
+
+        const eventsContainer = document.getElementById("eventsContainer");
+        eventsContainer.innerHTML = ""; // Clear previous content
+
+        events.forEach(event => {
+          const eventCard = document.createElement("div");
+          eventCard.classList.add("event-card");
+
+          eventCard.innerHTML = `
+   <div class="event-inner">
+    <div class="event-front">
+        <div class="event-info">
+            <p>${event.title}</p>
+            <p class="event-date">${new Date(event.date).toDateString()}</p>
+        </div>
+    </div>
+    <div class="event-back">
+        <p>${event.description}</p>
+    </div>
+</div>
+`;
+
+
+          eventsContainer.appendChild(eventCard);
+        });
+
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    });
+
+  </script>
+
+  <div class="main4">
+    <h1>Vote for your favourites and help crown Mr Future and Miss Future!</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id quia cum voluptas eaque quos magnam, porro fugit
+      omnis quas molestias itaque delectus nobis unde. Numquam est accusamus rem illo minima temporibus, placeat
+      voluptas hic a officia totam. Dolorem quas voluptate ab autem, deserunt laborum ex molestiae dolores dicta, natus
+      rem obcaecati aperiam quos ipsa eveniet amet quod nihil! Dignissimos dolor dicta enim sint iure animi? Modi
+      molestias perspiciatis rem, dolorum voluptas quia sint voluptatem ullam?</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil rerum voluptate asperiores veniam amet modi itaque
+      maiores mollitia aut et a dignissimos dolorum pariatur cum, accusantium voluptas sapiente distinctio explicabo. Ab
+      maxime iure porro sed numquam modi id perspiciatis libero optio ut? Quod quasi pariatur dolorum velit tempore,
+      suscipit placeat. Sint qui dignissimos, mollitia voluptatem vitae quod distinctio expedita eligendi.</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem beatae sit pariatur nesciunt impedit,
+      blanditiis, debitis adipisci, aliquam libero iure minus omnis laborum obcaecati odio cumque culpa earum maiores
+      velit dolorum ab! Praesentium libero cumque consectetur quia eius dolor impedit blanditiis sed quas obcaecati,
+      qui, dolores enim a molestias quos.</p>
+
+    <a class="vote-button" href="vote.html" class="vote-btn">
+      <i class="fas fa-vote-yea"></i> Vote Now
+    </a>
+  </div>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+
+
+  <!-- clubs -->
+  <div class="box-container">
+    <div class="box-item">
+      <div class="flip-box">
+        <div class="flip-box-front text-center"
+          style="background-image: url('https://s25.postimg.cc/frbd9towf/cta-2.png');">
+          <div class="inner color-white">
+            <h3 class="flip-box-header">Custom Domains</h3>
+            <p>A short sentence describing this callout is.</p>
+            <img src="https://s25.postimg.cc/65hsttv9b/cta-arrow.png" alt="" class="flip-box-img">
+          </div>
+        </div>
+        <div class="flip-box-back text-center"
+          style="background-image: url('https://s25.postimg.cc/frbd9towf/cta-2.png');">
+          <div class="inner color-white">
+            <h3 class="flip-box-header">Custom Domains</h3>
+            <p>A short sentence describing this callout is.</p>
+            <button class="flip-box-button">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-item">
+      <div class="flip-box">
+        <div class="flip-box-front text-center"
+          style="background-image: url('https://s25.postimg.cc/hj4c4qnov/cta-3.png');">
+          <div class="inner color-white">
+            <h3 class="flip-box-header">Never Sleeps</h3>
+            <p>A short sentence describing this callout is.</p>
+            <img src="https://s25.postimg.cc/65hsttv9b/cta-arrow.png" alt="" class="flip-box-img">
+          </div>
+        </div>
+        <div class="flip-box-back text-center"
+          style="background-image: url('https://s25.postimg.cc/hj4c4qnov/cta-3.png');">
+          <div class="inner color-white">
+            <h3 class="flip-box-header">Never Sleeps</h3>
+            <p>A short sentence describing this callout is.</p>
+            <button class="flip-box-button">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-item">
+      <div class="flip-box">
+        <div class="flip-box-front text-center filter-"
+          style="background-image: url('https://s25.postimg.cc/l2q9ujy4f/cta-4.png');">
+          <div class="inner color-white">
+            <h3 class="flip-box-header">Dedicated</h3>
+            <p>A short sentence describing this callout is.</p>
+            <img src="https://s25.postimg.cc/65hsttv9b/cta-arrow.png" alt="" class="flip-box-img">
+          </div>
+        </div>
+        <div class="flip-box-back text-center"
+          style="background-image: url('https://s25.postimg.cc/l2q9ujy4f/cta-4.png');">
+          <div class="inner color-white">
+            <h3 class="flip-box-header">Dedicated</h3>
+            <p>A short sentence describing this callout is.</p>
+            <button class="flip-box-button">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
