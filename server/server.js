@@ -20,7 +20,7 @@ const voteRoutes = require("./routes/voteRoutes");
 const app = express(); // ✅ Express app initialize kiya
 
 // ✅ Middleware setup
-app.use(cors({origin:"https://shadman-1q5l.onrender.com"})); // ✅ Cross-Origin Resource Sharing (CORS) allow kar raha hai
+app.use(cors({origin:"https://shadman-frontend.onrender.com"})); // ✅ Cross-Origin Resource Sharing (CORS) allow kar raha hai
 app.use(express.json()); // ✅ JSON data handle karne ke liye middleware
 
 // ✅ Static files serve karne ke liye (uploads folder ko public bana raha hai)
